@@ -180,7 +180,7 @@ test = 'gH2O / 100 g fresh mass'
 tmp = temp[which(units==test),]
 t.species = species[which(units==test)]
 # eps_plot = kNNdistplot(tmp, k=4000)
-t = dbscan(tmp, eps=0.000001, minPts=3)
+t = dbscan(tmp, eps=0.0000001, minPts=3)
 # t = dbscan(tmp, eps=0.00005, minPts=3)
 # fviz_cluster(d, customer_prep, geom = "point")
 t$cluster = as.factor(t$cluster)
