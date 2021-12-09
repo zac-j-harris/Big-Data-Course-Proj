@@ -1,5 +1,5 @@
 
-setwd("~/Desktop/  /FA-21/Huge Data/Course Project")
+setwd("~/Desktop/  /FA-21/Huge Data/Course-Project")
 library(ggplot2)
 library(Cairo)
 library(factoextra)
@@ -94,8 +94,12 @@ dev.off()
 # 
 # Clustering Methods
 # 
+
+# u.vals
+# gH2O / 100 g fresh mass
+
 cols = c('TraitID', 'OrigValueStr', 'AccSpeciesID', 'OrigUnitStr')
-temp = df[sample(c(1:length(df[,1])), size=200000),cols]
+temp = df[sample(c(1:length(df[,1])), size=600000),cols]
 out = c()
 # test = 'cm'
 for (str.unit in u.vals) {
@@ -129,10 +133,10 @@ temp = temp[,cols]
 # )
 
 count = 0
-test = '%'
+test = 'gH2O / 100 g fresh mass'
 for (unit in u.vals) {
   count = count + 1
-  K=4
+  K=2
   # if (count < 3) {
   #   K=2
   # }
@@ -172,11 +176,12 @@ print(p)
 
 
 
-
-tmp = temp[which(units=='%'),]
-t.species = species[which(units=='%')]
+test = 'gH2O / 100 g fresh mass'
+tmp = temp[which(units==test),]
+t.species = species[which(units==test)]
 # eps_plot = kNNdistplot(tmp, k=4000)
-t = dbscan(tmp, eps=0.00005, minPts=3)
+t = dbscan(tmp, eps=0.000001, minPts=3)
+# t = dbscan(tmp, eps=0.00005, minPts=3)
 # fviz_cluster(d, customer_prep, geom = "point")
 t$cluster = as.factor(t$cluster)
 p = plot_ly(x=~tmp$OrigValueStr, y=~tmp$TraitID, z=~t.species, color=~t$cluster) %>%
